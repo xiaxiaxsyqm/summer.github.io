@@ -29,6 +29,7 @@
    });
 ```
 效果：
+
 <img src = '../public/cesium-1-1.png' width="50%"/>
 
 
@@ -38,16 +39,22 @@
 
 需求2: 同时要求3dtiles模型（如上图中的灰色桥梁）`不被kml覆盖`。
 问题出现：cesium同时加载贴地的kml和3dtiles默认的效果如下图：
+
 <img src = '../public/cesium-1-2.png' width="50%"/>
+
 不得不说设置了贴地的kml很敬业，辛辛苦苦爬到地形之上，连3dtiles都不放过，但很明显，桥被红线包围肯定是影响观感的。
 不过确实有很多的使用场景适合这样的效果，比如下图这样的：3dtiles上加一层覆盖。
+
 <img src = '../public/cesium-1-3.png' width="50%"/>
+
 所以，需要找到办法既让kml贴地，又不让它覆盖3dtiles。于是找到了`classificationType`
 
 
 ## classificationType详解
 entity的billboard、polyline、polygon等元素都包含一个属性：`classificationType`
+
 <img src = '../public/cesium-1-4.png' width="50%"/>
+
 > classificationType表示这些元素的显示范围：terrain地形和3dtile瓦片图，仅3dtile瓦片图、仅terrain地形。
 默认值是ClassificationType.BOTH，所以会出现上面背景里描述的样子，默认情况下，kml线条在地形和瓦片模型上都显示了。
 
