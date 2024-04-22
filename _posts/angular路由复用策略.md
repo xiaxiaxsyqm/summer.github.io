@@ -71,10 +71,13 @@ angular 默认不会存储任何组件实例，除非要跳转的路由和当前
 
 具体实现：
 
-- 新建一个 class，implement RouteReuseStrategy
-  <img src = '../public/angular-reuse.png' width="100%"/>
-- 按照业务需求，重写以上各个方法
-- 告诉 angular 用新的 class 作为复用策略，在 app.module.ts 的 providers 里增加：
+1.  新建一个 class，implement RouteReuseStrategy
+    <img src = '../public/angular-reuse.png' width="100%"/>
+2.  按照业务需求，重写方法
+    根据本公司业务需求，我们在路由上增加 keepAlive 作为该组件是否复用的判断条件，在上图的方法里使用。
+    <img src = '../public/angular-reuse-2.jpg' width="100%"/>
+
+3.  告诉 angular 用新的 class 作为复用策略，在 app.module.ts 的 providers 里增加：
 
 ```js
 providers: [
