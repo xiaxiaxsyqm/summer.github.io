@@ -1,33 +1,33 @@
 # angular route reuse strategy (angular 路由复用策略)
 
-##### 改变路由，从一个组件 navaigate 到另一个组件，这个过程发生了什么？
+### 改变路由，从一个组件 navaigate 到另一个组件，这个过程发生了什么？
 
 比如现在路由是/pathA，DOM 里渲染了组件 A，当路由切到/pathB…..
 
 - 组件 A 被销毁（ngOnDestroy 被调用）：从 DOM 里移除组件 A，删除组件实例。
 - 组件 B 被初始化（ngOnInit 被调用）：初始化组件 B，渲染在 dom 里
 
-##### 问题：
+### 问题：
 
 组件初始化和销毁，组件 js 会重新执行一遍，dom 也会重新渲染，如果组件比较复杂，那么页面渲染体验就会比较差。
 另外，从列表页跳转别的页面后再返回列表页，列表页还需要保持跳转前的状态，怎么实现？
 
-##### 方案：
+### 方案：
 
 路由跳转时，不销毁当前的组件，而是将当前的组件保存起来，下次重复使用。
 如何实现？-- 使用 Angular Route Reuse Strategies
 
-##### Angular Route Reuse Strategies 做了什么？
+### Angular Route Reuse Strategies 做了什么？
 
-将组件实例存在某个地方，而不是销毁它
-当重新访问此路由，重复使用该组件实例，而不是重新创建个新组件
+将组件实例存在某个地方，而不是销毁它。
+当重新访问此路由，会重复使用该组件实例，而不是重新创建个新组件。
 
-##### angular 默认的行为
+### angular 默认的行为
 
 angular 默认不会存储任何组件实例，除非要跳转的路由和当前路由一致。所以 angular 一直在销毁和创建组件。
 我们可以重写 RouteReuseStrategy 来定义自己的 reuse 规则。
 
-##### 如何重写 RouteReuseStrategy？
+### 如何重写 RouteReuseStrategy？
 
 写一个类，继承 RouteReuseStrategy 抽象类，重写里边的方法：
 
@@ -72,8 +72,8 @@ angular 默认不会存储任何组件实例，除非要跳转的路由和当前
 具体实现：
 
 - 新建一个 class，implement RouteReuseStrategy
-  ![3ffc8f482411f2be315c6d035fe2baea.png](evernotecid://557E08A5-1584-4F28-B2D7-B5D31E60440A/appyinxiangcom/23742533/ENResource/p1079)
-- 按照业务需求，重写各个方法
+  <img src = '../public/angular-reuse.png' width="100%"/>
+- 按照业务需求，重写以上各个方法
 - 告诉 angular 用新的 class 作为复用策略，在 app.module.ts 的 providers 里增加：
 
 ```js
